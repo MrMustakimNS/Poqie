@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting - Poqie.site</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="redirect-container">
+        <div class="redirect-card">
+            <div id="redirectContent">
+                <div class="redirect-icon">
+                    <i class="fas fa-external-link-alt"></i>
+                </div>
+                <h2 class="redirect-title">You are being redirected</h2>
+                <p class="redirect-message">For your safety, we're showing you the destination before redirecting:</p>
+                
+                <div class="redirect-url">
+                    <span id="destinationUrl">Loading...</span>
+                </div>
+                
+                <div class="countdown" id="countdown">10</div>
+                
+                <p class="redirect-message">You will be automatically redirected in <span id="countdownText">10</span> seconds.</p>
+                
+                <div class="redirect-actions">
+                    <button id="skipRedirect" class="btn btn-primary">Skip Wait</button>
+                    <button id="cancelRedirect" class="btn btn-secondary">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase and CryptoJS -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    
+    <script src="js/firebase-config.js"></script>
+    <script src="js/redirect.js"></script>
+</body>
+</html>
