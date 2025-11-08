@@ -3,191 +3,301 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Poqie.site - Advanced URL Shortener</title>
+    <title>Poqie.site - Ultimate Secure URL Shortener</title>
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 </head>
 <body>
-    <header>
-        <nav class="navbar">
-            <div class="nav-container">
-                <div class="nav-logo">
-                    <a href="index.html"><i class="fas fa-link"></i> Poqie.site</a>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar glass">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-bolt"></i>
+                    <span>Poqie.site</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#how-it-works" class="nav-link">How It Works</a>
+                <a href="#pricing" class="nav-link">Pricing</a>
+                <a href="login.html" class="nav-link login-btn">Sign In</a>
+                <a href="login.html?action=signup" class="nav-link signup-btn pulse">Get Started Free</a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="badge">🔥 Most Secure URL Shortener</div>
+                <h1 class="hero-title">
+                    <span class="gradient-text">Shorten Links</span>
+                    <span class="typing-text">Securely</span>
+                </h1>
+                <p class="hero-description">
+                    Advanced military-grade encryption, password protection, and detailed analytics. 
+                    The ultimate URL shortener for privacy-conscious users.
+                </p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number" data-count="250000">0</span>
+                        <span class="stat-label">Links Shortened</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number" data-count="50000">0</span>
+                        <span class="stat-label">Active Users</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number" data-count="99">0</span>
+                        <span class="stat-label">% Uptime</span>
+                    </div>
                 </div>
-                <div class="nav-menu">
-                    <a href="index.html" class="nav-link active">Home</a>
-                    <a href="#features" class="nav-link">Features</a>
-                    <a href="#how-it-works" class="nav-link">How It Works</a>
-                    <a href="login.html" class="nav-link login-btn">Login</a>
-                    <a href="login.html" class="nav-link signup-btn">Sign Up</a>
-                </div>
-                <div class="hamburger">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
+                <div class="hero-cta">
+                    <a href="login.html?action=signup" class="btn btn-primary btn-lg btn-glow">
+                        <i class="fas fa-rocket"></i>
+                        Start For Free
+                    </a>
+                    <a href="#features" class="btn btn-secondary btn-lg">
+                        <i class="fas fa-play-circle"></i>
+                        Watch Demo
+                    </a>
                 </div>
             </div>
-        </nav>
-    </header>
-
-    <main>
-        <section class="hero">
-            <div class="hero-container">
-                <div class="hero-content">
-                    <h1 class="hero-title">Shorten Links, <span class="highlight">Expand Reach</span></h1>
-                    <p class="hero-description">Poqie.site offers secure, encrypted URL shortening with advanced analytics and complete privacy protection.</p>
-                    <div class="hero-cta">
-                        <a href="login.html" class="btn btn-primary">Get Started Free</a>
-                        <a href="#features" class="btn btn-secondary">Learn More</a>
+            <div class="hero-visual">
+                <div class="dashboard-preview glass">
+                    <div class="preview-header">
+                        <div class="preview-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="preview-content">
+                        <div class="url-input-preview">
+                            <input type="text" placeholder="Paste your long URL here..." readonly>
+                            <button class="btn-preview">Encrypt & Shorten</button>
+                        </div>
+                        <div class="preview-stats">
+                            <div class="preview-stat">
+                                <i class="fas fa-lock"></i>
+                                <span>Military-Grade Encryption</span>
+                            </div>
+                            <div class="preview-stat">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Password Protection</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="hero-image">
-                    <div class="floating-card card-1">
-                        <i class="fas fa-shield-alt"></i>
-                        <h3>Secure & Encrypted</h3>
-                    </div>
-                    <div class="floating-card card-2">
-                        <i class="fas fa-tachometer-alt"></i>
-                        <h3>Fast Redirects</h3>
-                    </div>
-                    <div class="floating-card card-3">
-                        <i class="fas fa-chart-line"></i>
-                        <h3>Link Analytics</h3>
-                    </div>
-                    <div class="main-illustration">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Cpath fill='%236c63ff' d='M200,50 C280,50 350,120 350,200 C350,280 280,350 200,350 C120,350 50,280 50,200 C50,120 120,50 200,50 Z'/%3E%3Cpath fill='%23ffffff' d='M180,120 L220,120 L220,160 L260,160 L260,200 L220,200 L220,240 L180,240 L180,200 L140,200 L140,160 L180,160 Z'/%3E%3C/svg%3E" alt="URL Shortener Illustration">
-                    </div>
+                <div class="floating-feature feature-1">
+                    <i class="fas fa-fingerprint"></i>
+                    <span>Biometric Security</span>
+                </div>
+                <div class="floating-feature feature-2">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Advanced Analytics</span>
+                </div>
+                <div class="floating-feature feature-3">
+                    <i class="fas fa-qrcode"></i>
+                    <span>QR Code Generation</span>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="features" class="features">
-            <div class="container">
-                <h2 class="section-title">Advanced Features</h2>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Enterprise-Grade Features</h2>
+                <p class="section-subtitle">Everything you need for secure and powerful URL management</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card glass" data-aos="fade-up">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h3>Military-Grade Encryption</h3>
+                    <p>AES-256 encryption for all your URLs. Even we can't see your original links without your private key.</p>
+                    <div class="feature-badge">Ultra Secure</div>
+                </div>
+                <div class="feature-card glass" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon">
+                        <i class="fas fa-key"></i>
+                    </div>
+                    <h3>Password Protection</h3>
+                    <p>Add passwords to your shortened links. Users must enter the correct password before accessing the destination.</p>
+                    <div class="feature-badge">Exclusive</div>
+                </div>
+                <div class="feature-card glass" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-network"></i>
+                    </div>
+                    <h3>Advanced Analytics</h3>
+                    <p>Track clicks, geographic locations, devices, referral sources, and real-time performance metrics.</p>
+                    <div class="feature-badge">Insightful</div>
+                </div>
+                <div class="feature-card glass" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-icon">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                    <h3>QR Code Generation</h3>
+                    <p>Automatically generate QR codes for your shortened URLs. Perfect for print materials and marketing.</p>
+                    <div class="feature-badge">Versatile</div>
+                </div>
+                <div class="feature-card glass" data-aos="fade-up" data-aos-delay="400">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Link Expiration</h3>
+                    <p>Set expiration dates for your links. Automatic deletion after specified time or number of clicks.</p>
+                    <div class="feature-badge">Controlled</div>
+                </div>
+                <div class="feature-card glass" data-aos="fade-up" data-aos-delay="500">
+                    <div class="feature-icon">
+                        <i class="fas fa-users-cog"></i>
+                    </div>
+                    <h3>Team Collaboration</h3>
+                    <p>Invite team members, set permissions, and manage URLs together with role-based access control.</p>
+                    <div class="feature-badge">Collaborative</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Security Section -->
+    <section class="security">
+        <div class="container">
+            <div class="security-content">
+                <div class="security-text">
+                    <h2>Bank-Level Security</h2>
+                    <p>Your privacy and security are our top priority. We implement multiple layers of protection.</p>
+                    <div class="security-features">
+                        <div class="security-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>End-to-End Encryption</span>
+                        </div>
+                        <div class="security-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Zero-Knowledge Architecture</span>
+                        </div>
+                        <div class="security-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>GDPR & CCPA Compliant</span>
+                        </div>
+                        <div class="security-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Regular Security Audits</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="security-visual">
+                    <div class="encryption-animation">
+                        <div class="data-block original">
+                            <span>Original URL</span>
+                        </div>
+                        <div class="encryption-process">
                             <i class="fas fa-lock"></i>
                         </div>
-                        <h3>Secure Encryption</h3>
-                        <p>All your URLs and data are encrypted with advanced algorithms. No one can access your data without authorization.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-user-shield"></i>
+                        <div class="data-block encrypted">
+                            <span>Encrypted Data</span>
                         </div>
-                        <h3>Safe Links</h3>
-                        <p>Our 10-second redirect timer ensures users are aware they're leaving our site, providing an extra layer of security.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-chart-bar"></i>
-                        </div>
-                        <h3>Link Analytics</h3>
-                        <p>Track clicks, geographic data, and referral sources for all your shortened links with detailed analytics.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-palette"></i>
-                        </div>
-                        <h3>Custom URLs</h3>
-                        <p>Create custom, branded short URLs that are easy to remember and share across platforms.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-mobile-alt"></i>
-                        </div>
-                        <h3>Mobile Friendly</h3>
-                        <p>Our platform works seamlessly on all devices - desktop, tablet, and mobile with responsive design.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-infinity"></i>
-                        </div>
-                        <h3>Unlimited Links</h3>
-                        <p>Create as many shortened links as you need with no restrictions or hidden limits.</p>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="how-it-works" class="how-it-works">
-            <div class="container">
-                <h2 class="section-title">How It Works</h2>
-                <div class="steps">
-                    <div class="step">
-                        <div class="step-number">1</div>
-                        <h3>Create Account</h3>
-                        <p>Sign up for a free account to start shortening your URLs with advanced features.</p>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">2</div>
-                        <h3>Shorten URL</h3>
-                        <p>Paste your long URL and get a secure, shortened link instantly.</p>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">3</div>
-                        <h3>Share & Track</h3>
-                        <p>Share your shortened links and track their performance with detailed analytics.</p>
-                    </div>
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content glass">
+                <h2>Ready to Secure Your Links?</h2>
+                <p>Join 50,000+ users who trust Poqie.site with their URL shortening needs.</p>
+                <div class="cta-buttons">
+                    <a href="login.html?action=signup" class="btn btn-primary btn-lg btn-glow">
+                        <i class="fas fa-crown"></i>
+                        Get Started Free
+                    </a>
+                    <a href="#" class="btn btn-secondary btn-lg">
+                        <i class="fas fa-calendar"></i>
+                        Schedule Demo
+                    </a>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="cta-section">
-            <div class="container">
-                <div class="cta-content">
-                    <h2>Ready to Shorten Your URLs?</h2>
-                    <p>Join thousands of users who trust Poqie.site for secure and reliable URL shortening.</p>
-                    <a href="login.html" class="btn btn-primary">Get Started Now</a>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
+    <!-- Footer -->
+    <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3><i class="fas fa-link"></i> Poqie.site</h3>
-                    <p>Advanced URL shortener with security, analytics, and privacy protection.</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="#features">Features</a></li>
-                        <li><a href="#how-it-works">How It Works</a></li>
-                        <li><a href="login.html">Login</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Legal</h4>
-                    <ul>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Cookie Policy</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Connect</h4>
+                    <div class="footer-logo">
+                        <i class="fas fa-bolt"></i>
+                        Poqie.site
+                    </div>
+                    <p>The most secure URL shortener on the planet. Privacy-first, feature-rich, and built for professionals.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
                         <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-product-hunt"></i></a>
                     </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#">API</a></li>
+                        <li><a href="#">Integrations</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Community</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Privacy</a></li>
+                        <li><a href="#">Terms</a></li>
+                    </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2023 Poqie.site. All rights reserved.</p>
+                <p>&copy; 2024 Poqie.site. All rights reserved. Built with ❤️ for the privacy-conscious.</p>
             </div>
         </div>
     </footer>
 
-    <script src="js/firebase-config.js"></script>
-    <script src="js/auth.js"></script>
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>
