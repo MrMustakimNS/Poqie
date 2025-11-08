@@ -5,42 +5,124 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redirecting - Poqie.site</title>
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
+<body class="redirect-body">
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
     <div class="redirect-container">
-        <div class="redirect-card">
+        <div class="redirect-card glass">
             <div id="redirectContent">
-                <div class="redirect-icon">
-                    <i class="fas fa-external-link-alt"></i>
+                <!-- Password Protected Screen -->
+                <div id="passwordScreen" style="display: none;">
+                    <div class="redirect-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h2 class="redirect-title">Password Protected</h2>
+                    <p class="redirect-message">This link is protected. Please enter the password to continue.</p>
+                    
+                    <form id="passwordForm" class="password-form">
+                        <div class="form-group">
+                            <input type="password" id="linkPassword" placeholder="Enter link password" required>
+                            <button type="button" id="toggleLinkPassword" class="toggle-password">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-unlock"></i>
+                            Unlock Link
+                        </button>
+                    </form>
+                    
+                    <div class="redirect-actions">
+                        <button onclick="window.location.href='index.html'" class="btn btn-secondary">
+                            <i class="fas fa-home"></i>
+                            Go Home
+                        </button>
+                    </div>
                 </div>
-                <h2 class="redirect-title">You are being redirected</h2>
-                <p class="redirect-message">For your safety, we're showing you the destination before redirecting:</p>
-                
-                <div class="redirect-url">
-                    <span id="destinationUrl">Loading...</span>
+
+                <!-- Redirect Screen -->
+                <div id="redirectScreen" style="display: none;">
+                    <div class="redirect-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h2 class="redirect-title">Secure Redirect</h2>
+                    <p class="redirect-message">You're being securely redirected to:</p>
+                    
+                    <div class="redirect-url">
+                        <span id="destinationUrl">Loading...</span>
+                    </div>
+                    
+                    <div class="security-info">
+                        <div class="security-badge">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Link Verified & Secure</span>
+                        </div>
+                    </div>
+                    
+                    <div class="countdown-container">
+                        <div class="countdown" id="countdown">10</div>
+                        <p>Redirecting in <span id="countdownText">10</span> seconds</p>
+                    </div>
+                    
+                    <div class="redirect-actions">
+                        <button id="skipRedirect" class="btn btn-primary">
+                            <i class="fas fa-bolt"></i>
+                            Skip Wait
+                        </button>
+                        <button onclick="window.location.href='index.html'" class="btn btn-secondary">
+                            <i class="fas fa-times"></i>
+                            Cancel
+                        </button>
+                    </div>
                 </div>
-                
-                <div class="countdown" id="countdown">10</div>
-                
-                <p class="redirect-message">You will be automatically redirected in <span id="countdownText">10</span> seconds.</p>
-                
-                <div class="redirect-actions">
-                    <button id="skipRedirect" class="btn btn-primary">Skip Wait</button>
-                    <button id="cancelRedirect" class="btn btn-secondary">Cancel</button>
+
+                <!-- Error Screen -->
+                <div id="errorScreen" style="display: none;">
+                    <div class="redirect-icon error">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h2 class="redirect-title" id="errorTitle">Link Not Found</h2>
+                    <p class="redirect-message" id="errorMessage">This link doesn't exist or has expired.</p>
+                    
+                    <div class="redirect-actions">
+                        <button onclick="window.location.href='index.html'" class="btn btn-primary">
+                            <i class="fas fa-home"></i>
+                            Go Home
+                        </button>
+                        <button onclick="window.location.href='login.html'" class="btn btn-secondary">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Sign In
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Loading Screen -->
+                <div id="loadingScreen">
+                    <div class="loading-spinner">
+                        <i class="fas fa-lock fa-spin"></i>
+                    </div>
+                    <h2 class="redirect-title">Verifying Link Security</h2>
+                    <p class="redirect-message">Please wait while we decrypt and verify your link...</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Firebase and CryptoJS -->
+    <!-- Scripts -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     
     <script src="js/firebase-config.js"></script>
+    <script src="js/encryption.js"></script>
     <script src="js/redirect.js"></script>
 </body>
 </html>
