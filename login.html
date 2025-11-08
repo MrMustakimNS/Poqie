@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Poqie.site</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <a href="index.html"><i class="fas fa-link"></i> Poqie.site</a>
+                </div>
+                <div class="nav-menu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="index.html#features" class="nav-link">Features</a>
+                    <a href="index.html#how-it-works" class="nav-link">How It Works</a>
+                    <a href="login.html" class="nav-link active">Login</a>
+                    <a href="login.html?action=signup" class="nav-link signup-btn">Sign Up</a>
+                </div>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="auth-container">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <h1 id="authTitle">Login to Your Account</h1>
+                    <p id="authSubtitle">Access your shortened URLs and analytics</p>
+                </div>
+                
+                <form id="authForm" class="auth-form">
+                    <div id="errorMsg" class="error-message" style="display: none; background: #ffebee; color: #c62828; padding: 10px; border-radius: 5px; margin-bottom: 20px;"></div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    
+                    <div id="confirmPasswordGroup" class="form-group" style="display: none;">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary auth-btn" id="authButton">Login</button>
+                </form>
+                
+                <div class="auth-footer">
+                    <p id="authFooterText">Don't have an account? <a href="login.html?action=signup" id="authToggle">Sign up</a></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-link"></i> Poqie.site</h3>
+                    <p>Advanced URL shortener with security, analytics, and privacy protection.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#features">Features</a></li>
+                        <li><a href="index.html#how-it-works">How It Works</a></li>
+                        <li><a href="login.html">Login</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Poqie.site. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase and CryptoJS -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        // Toggle between login and signup
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const action = urlParams.get('action');
+            
+            if (action === 'signup') {
+                showSignupForm();
+            }
+            
+            // Toggle link
+            document.getElementById('authToggle').addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                if (document.getElementById('authTitle').textContent === 'Login to Your Account') {
+                    showSignupForm();
+                    window.history.pushState({}, '', '?action=signup');
+                } else {
+                    showLoginForm();
+                    window.history.pushState({}, '', 'login.html');
+                }
+            });
+            
+            function showSignupForm() {
+                document.getElementById('authTitle').textContent = 'Create an Account';
+                document.getElementById('authSubtitle').textContent = 'Join thousands of users shortening URLs securely';
+                document.getElementById('confirmPasswordGroup').style.display = 'block';
+                document.getElementById('authButton').textContent = 'Sign Up';
+                document.getElementById('authFooterText').innerHTML = 'Already have an account? <a href="login.html" id="authToggle">Login</a>';
+                document.getElementById('authForm').id = 'signupForm';
+            }
+            
+            function showLoginForm() {
+                document.getElementById('authTitle').textContent = 'Login to Your Account';
+                document.getElementById('authSubtitle').textContent = 'Access your shortened URLs and analytics';
+                document.getElementById('confirmPasswordGroup').style.display = 'none';
+                document.getElementById('authButton').textContent = 'Login';
+                document.getElementById('authFooterText').innerHTML = 'Don\'t have an account? <a href="login.html?action=signup" id="authToggle">Sign up</a>';
+                document.getElementById('authForm').id = 'loginForm';
+            }
+        });
+    </script>
+</body>
+</html>
