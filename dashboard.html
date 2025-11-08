@@ -5,105 +5,254 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Poqie.site</title>
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/auth.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
-    <header>
-        <nav class="navbar">
-            <div class="nav-container">
-                <div class="nav-logo">
-                    <a href="index.html"><i class="fas fa-link"></i> Poqie.site</a>
-                </div>
-                <div class="nav-menu">
-                    <a href="index.html" class="nav-link">Home</a>
-                    <a href="index.html#features" class="nav-link">Features</a>
-                    <a href="index.html#how-it-works" class="nav-link">How It Works</a>
-                    <div class="user-info">
-                        <div class="user-avatar" id="userInitial">U</div>
-                        <span id="userEmail">user@example.com</span>
-                        <button id="logoutBtn" class="btn btn-secondary" style="padding: 8px 16px; margin-left: 10px;">Logout</button>
-                    </div>
-                </div>
-                <div class="hamburger">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </div>
-            </div>
-        </nav>
-    </header>
+<body class="dashboard-body">
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
 
-    <main class="dashboard">
-        <div class="container">
-            <div class="dashboard-header">
-                <h1 class="dashboard-title">Your Shortened URLs</h1>
+    <!-- Navigation -->
+    <nav class="navbar glass">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-bolt"></i>
+                    <span>Poqie.site</span>
+                </a>
             </div>
-            
-            <div class="url-shortener-form">
-                <h2>Shorten a New URL</h2>
-                <form id="urlForm">
-                    <div class="form-row">
-                        <input type="url" id="originalUrl" class="url-input" placeholder="Paste your long URL here" required>
-                        <button type="submit" class="btn btn-primary">Shorten</button>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="#" class="nav-link">Analytics</a>
+                <a href="#" class="nav-link">Settings</a>
+                <div class="user-menu">
+                    <div class="user-avatar" id="userAvatar">
+                        <i class="fas fa-user"></i>
                     </div>
-                    <div class="custom-url-option">
-                        <input type="checkbox" id="customUrlToggle">
-                        <label for="customUrlToggle">Custom URL</label>
-                        <div id="customUrlContainer" style="display: none; flex: 1;">
-                            <input type="text" id="customSlug" class="custom-url-input" placeholder="Custom name (optional)">
+                    <div class="user-dropdown">
+                        <span id="userEmail">user@example.com</span>
+                        <button id="logoutBtn" class="btn btn-secondary btn-sm">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Main -->
+    <main class="dashboard-main">
+        <div class="dashboard-container">
+            <!-- Sidebar -->
+            <aside class="sidebar glass">
+                <div class="sidebar-header">
+                    <h3>Quick Actions</h3>
+                </div>
+                <nav class="sidebar-nav">
+                    <a href="#" class="nav-item active">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-link"></i>
+                        <span>My Links</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Analytics</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-qrcode"></i>
+                        <span>QR Codes</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </nav>
+                <div class="sidebar-stats">
+                    <div class="stat-card mini">
+                        <i class="fas fa-link"></i>
+                        <div>
+                            <span class="stat-number" id="totalLinks">0</span>
+                            <span class="stat-label">Total Links</span>
                         </div>
                     </div>
-                </form>
-            </div>
-            
-            <div class="links-list" id="linksList">
-                <p>Loading your links...</p>
+                    <div class="stat-card mini">
+                        <i class="fas fa-mouse-pointer"></i>
+                        <div>
+                            <span class="stat-number" id="totalClicks">0</span>
+                            <span class="stat-label">Total Clicks</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <div class="dashboard-content">
+                <!-- Welcome Header -->
+                <div class="welcome-header glass">
+                    <div class="welcome-text">
+                        <h1>Welcome back, <span id="userName">User</span>! 👋</h1>
+                        <p>Here's what's happening with your links today.</p>
+                    </div>
+                    <div class="quick-stats">
+                        <div class="stat-card">
+                            <i class="fas fa-rocket"></i>
+                            <div>
+                                <span class="stat-number">12</span>
+                                <span class="stat-label">Active Links</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-chart-line"></i>
+                            <div>
+                                <span class="stat-number">245</span>
+                                <span class="stat-label">Today's Clicks</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- URL Shortener Card -->
+                <div class="shortener-card glass">
+                    <h2>Create New Short Link</h2>
+                    <form id="urlForm" class="url-form">
+                        <div class="form-group">
+                            <label for="originalUrl">Destination URL</label>
+                            <input type="url" id="originalUrl" required placeholder="https://example.com/very-long-url">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="customSlug">Custom Slug (Optional)</label>
+                                <input type="text" id="customSlug" placeholder="my-custom-link">
+                            </div>
+                            <div class="form-group">
+                                <label for="linkPassword">Password Protect</label>
+                                <input type="password" id="linkPassword" placeholder="Optional password">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="expiration">Expiration Date</label>
+                                <input type="date" id="expiration">
+                            </div>
+                            <div class="form-group">
+                                <label for="maxClicks">Max Clicks</label>
+                                <input type="number" id="maxClicks" placeholder="Unlimited">
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-lock"></i>
+                                Encrypt & Shorten URL
+                            </button>
+                            <button type="button" class="btn btn-secondary" id="advancedToggle">
+                                <i class="fas fa-cog"></i>
+                                Advanced Options
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Advanced Options -->
+                    <div id="advancedOptions" class="advanced-options" style="display: none;">
+                        <h3>Advanced Security Options</h3>
+                        <div class="options-grid">
+                            <div class="option-item">
+                                <input type="checkbox" id="geoRestrict">
+                                <label for="geoRestrict">
+                                    <i class="fas fa-globe"></i>
+                                    <span>Geographic Restrictions</span>
+                                    <small>Limit access to specific countries</small>
+                                </label>
+                            </div>
+                            <div class="option-item">
+                                <input type="checkbox" id="deviceRestrict">
+                                <label for="deviceRestrict">
+                                    <i class="fas fa-mobile-alt"></i>
+                                    <span>Device Restrictions</span>
+                                    <small>Limit to specific device types</small>
+                                </label>
+                            </div>
+                            <div class="option-item">
+                                <input type="checkbox" id="timeRestrict">
+                                <label for="timeRestrict">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Time Restrictions</span>
+                                    <small>Limit access to specific hours</small>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Links -->
+                <div class="recent-links glass">
+                    <div class="section-header">
+                        <h2>Recent Links</h2>
+                        <div class="view-actions">
+                            <button class="btn btn-sm btn-secondary">
+                                <i class="fas fa-sync"></i>
+                                Refresh
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="links-table">
+                        <div class="table-header">
+                            <div>Short URL</div>
+                            <div>Destination</div>
+                            <div>Clicks</div>
+                            <div>Created</div>
+                            <div>Actions</div>
+                        </div>
+                        <div class="table-body" id="linksList">
+                            <!-- Links will be populated here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analytics Overview -->
+                <div class="analytics-overview">
+                    <div class="analytics-card glass">
+                        <h3>Top Performing Links</h3>
+                        <div class="top-links" id="topLinks">
+                            <!-- Top links will be populated here -->
+                        </div>
+                    </div>
+                    <div class="analytics-card glass">
+                        <h3>Quick Actions</h3>
+                        <div class="quick-actions-grid">
+                            <button class="action-btn">
+                                <i class="fas fa-download"></i>
+                                <span>Export Data</span>
+                            </button>
+                            <button class="action-btn">
+                                <i class="fas fa-qrcode"></i>
+                                <span>Generate QR</span>
+                            </button>
+                            <button class="action-btn">
+                                <i class="fas fa-users"></i>
+                                <span>Team Settings</span>
+                            </button>
+                            <button class="action-btn">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Security</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
 
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3><i class="fas fa-link"></i> Poqie.site</h3>
-                    <p>Advanced URL shortener with security, analytics, and privacy protection.</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="index.html#features">Features</a></li>
-                        <li><a href="index.html#how-it-works">How It Works</a></li>
-                        <li><a href="login.html">Login</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Legal</h4>
-                    <ul>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Cookie Policy</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Connect</h4>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2023 Poqie.site. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Firebase and CryptoJS -->
+    <!-- Scripts -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
@@ -112,5 +261,6 @@
     <script src="js/firebase-config.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/dashboard.js"></script>
+    <script src="js/encryption.js"></script>
 </body>
 </html>
