@@ -1,4 +1,4 @@
-// Firebase configuration
+// Enhanced Firebase Configuration with Error Handling
 const firebaseConfig = {
   apiKey: "AIzaSyAiB0zy_SFSXQPKKbei_ubhlZzvrWDCNZI",
   authDomain: "milon-box.firebaseapp.com",
@@ -10,24 +10,66 @@ const firebaseConfig = {
   measurementId: "G-QZ4Q8P0M8L"
 };
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+// Initialize Firebase with error handling
+try {
+  // Check if Firebase is already initialized
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+    console.log('Firebase initialized successfully');
+  } else {
+    firebase.app(); // if already initialized, use that one
+  }
+} catch (error) {
+  console.error('Firebase initialization error:', error);
+}
 
 // Initialize Firebase services
 const auth = firebase.auth();
 const db = firebase.database();
 
-// Encryption function using CryptoJS (you'll need to include CryptoJS library)
-function encryptData(data, key) {
-    return CryptoJS.AES.encrypt(data, key).toString();
-}
+// Firebase Auth state persistence
+auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+  .catch((error) => {
+    console.error('Auth persistence error:', error);
+  });
 
-function decryptData(encryptedData, key) {
-    const bytes = CryptoJS.AES.decrypt(encryptedData, key);
-    return bytes.toString(CryptoJS.enc.Utf8);
-}
+// Enhanced error handling for Firebase operations
+const firebaseService = {
+  // Safe database write operation
+  async writeData(path, data) {
+    try {
+      await db.ref(path).set(data);
+      return { success: true };
+    } catch (error) {
+      console.error('Firebase write error:', error);
+      return { success: false, error: error.message };
+    }
+  },
 
-// Generate a unique encryption key for each user
-function generateUserKey(uid) {
-    return CryptoJS.SHA256(uid + "poqie_site_secret").toString();
+  // Safe database read operation
+  async readData(path) {
+    try {
+      const snapshot = await db.ref(path).once('value');
+      return { success: true, data: snapshot.val() };
+    } catch (error) {
+      console.error('Firebase read error:', error);
+      return { success: false, error: error.message };
+    }
+  },
+
+  // Safe database update operation
+  async updateData(path, updates) {
+    try {
+      await db.ref(path).update(updates);
+      return { success: true };
+    } catch (error) {
+      console.error('Firebase update error:', error);
+      return { success: false, error: error.message };
+    }
+  }
+};
+
+// Export for use in other modules
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { firebaseConfig, auth, db, firebaseService };
 }
