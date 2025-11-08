@@ -1,4 +1,4 @@
-// Enhanced Authentication System
+// Complete Fixed Authentication System
 class AdvancedAuth {
     constructor() {
         this.init();
@@ -7,23 +7,102 @@ class AdvancedAuth {
     init() {
         this.setupAuthListeners();
         this.checkAuthState();
+        this.setupUI();
+    }
+
+    setupUI() {
+        // Password visibility toggles
+        document.querySelectorAll('.toggle-password').forEach(toggle => {
+            toggle.addEventListener('click', (e) => {
+                const input = e.target.closest('.password-input').querySelector('input');
+                const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+                input.setAttribute('type', type);
+                e.target.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+            });
+        });
+
+        // Form toggle between login/signup
+        const authToggle = document.getElementById('authToggle');
+        if (authToggle) {
+            authToggle.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.toggleAuthForm();
+            });
+        }
+
+        // Check URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('action') === 'signup') {
+            this.showSignupForm();
+        }
+    }
+
+    toggleAuthForm() {
+        const isLogin = document.getElementById('authTitle').textContent.includes('Welcome');
+        
+        if (isLogin) {
+            this.showSignupForm();
+            window.history.pushState({}, '', '?action=signup');
+        } else {
+            this.showLoginForm();
+            window.history.pushState({}, '', 'login.html');
+        }
+    }
+
+    showSignupForm() {
+        document.getElementById('authTitle').textContent = 'Create Account';
+        document.getElementById('authSubtitle').textContent = 'Join thousands securing their URLs';
+        document.getElementById('authButton').innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
+        document.getElementById('authFooterText').innerHTML = 'Already have an account? <a href="#" id="authToggle">Sign in</a>';
+        
+        // Add confirm password field
+        const passwordGroup = document.querySelector('.form-group:nth-child(2)');
+        if (passwordGroup && !document.getElementById('confirmPassword')) {
+            const confirmPasswordHTML = `
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <div class="password-input">
+                        <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirm your password">
+                        <button type="button" class="toggle-password">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+            passwordGroup.insertAdjacentHTML('afterend', confirmPasswordHTML);
+        }
+        
+        document.getElementById('authForm').id = 'signupForm';
+        this.setupUI(); // Re-setup UI for new elements
+    }
+
+    showLoginForm() {
+        document.getElementById('authTitle').textContent = 'Welcome Back';
+        document.getElementById('authSubtitle').textContent = 'Sign in to your secure URL shortener account';
+        document.getElementById('authButton').innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
+        document.getElementById('authFooterText').innerHTML = 'Don\'t have an account? <a href="#" id="authToggle">Sign up</a>';
+        
+        // Remove confirm password field
+        const confirmPasswordGroup = document.querySelector('.form-group:nth-child(3)');
+        if (confirmPasswordGroup && document.getElementById('confirmPassword')) {
+            confirmPasswordGroup.remove();
+        }
+        
+        document.getElementById('authForm').id = 'loginForm';
     }
 
     setupAuthListeners() {
-        // Login form handler
+        // Login form
         const loginForm = document.getElementById('loginForm');
         if (loginForm) {
             loginForm.addEventListener('submit', (e) => this.handleLogin(e));
         }
 
-        // Signup form handler
+        // Signup form
         const signupForm = document.getElementById('signupForm');
         if (signupForm) {
             signupForm.addEventListener('submit', (e) => this.handleSignup(e));
         }
-
-        // Social auth handlers
-        this.setupSocialAuth();
     }
 
     async handleLogin(e) {
@@ -31,26 +110,24 @@ class AdvancedAuth {
         
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
-        const rememberMe = document.getElementById('rememberMe')?.checked || false;
-        const errorDiv = document.getElementById('errorMessage');
         const submitBtn = document.getElementById('authButton');
+        const errorDiv = document.getElementById('errorMessage');
 
         try {
-            // Show loading state
             this.setLoadingState(submitBtn, true);
+            this.hideError(errorDiv);
 
-            // Set persistence based on remember me
-            const persistence = rememberMe ? 
-                firebase.auth.Auth.Persistence.LOCAL : 
-                firebase.auth.Auth.Persistence.SESSION;
-            
-            await auth.setPersistence(persistence);
-
-            // Sign in user
             const userCredential = await auth.signInWithEmailAndPassword(email, password);
             
-            // Success - redirect to dashboard
-            window.location.href = 'dashboard.html';
+            // Show success notification
+            if (window.showNotification) {
+                window.showNotification('Successfully signed in!', 'success');
+            }
+            
+            // Redirect to dashboard
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 1000);
 
         } catch (error) {
             this.handleAuthError(error, errorDiv);
@@ -64,38 +141,40 @@ class AdvancedAuth {
         
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
-        const confirmPassword = document.getElementById('confirmPassword').value;
-        const errorDiv = document.getElementById('errorMessage');
+        const confirmPassword = document.getElementById('confirmPassword')?.value;
         const submitBtn = document.getElementById('authButton');
+        const errorDiv = document.getElementById('errorMessage');
 
-        // Validate passwords match
+        // Validation
         if (password !== confirmPassword) {
             this.showError(errorDiv, 'Passwords do not match');
             return;
         }
 
-        // Validate password strength
         if (!this.isStrongPassword(password)) {
             this.showError(errorDiv, 'Password must be at least 8 characters with uppercase, lowercase, and numbers');
             return;
         }
 
         try {
-            // Show loading state
             this.setLoadingState(submitBtn, true);
+            this.hideError(errorDiv);
 
-            // Create user account
             const userCredential = await auth.createUserWithEmailAndPassword(email, password);
             const user = userCredential.user;
 
-            // Create user profile in database
+            // Create user profile
             await this.createUserProfile(user);
 
-            // Send verification email
-            await user.sendEmailVerification();
+            // Show success notification
+            if (window.showNotification) {
+                window.showNotification('Account created successfully!', 'success');
+            }
 
-            // Success - redirect to dashboard
-            window.location.href = 'dashboard.html';
+            // Redirect to dashboard
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 1500);
 
         } catch (error) {
             this.handleAuthError(error, errorDiv);
@@ -115,11 +194,7 @@ class AdvancedAuth {
             },
             settings: {
                 theme: 'dark',
-                notifications: true,
-                security: {
-                    twoFactor: false,
-                    loginAlerts: true
-                }
+                notifications: true
             },
             stats: {
                 linksCreated: 0,
@@ -127,31 +202,7 @@ class AdvancedAuth {
             }
         };
 
-        await firebaseService.writeData(`users/${user.uid}`, userData);
-    }
-
-    setupSocialAuth() {
-        // Google auth
-        const googleBtn = document.querySelector('.social-btn.google');
-        if (googleBtn) {
-            googleBtn.addEventListener('click', () => this.signInWithGoogle());
-        }
-
-        // GitHub auth
-        const githubBtn = document.querySelector('.social-btn.github');
-        if (githubBtn) {
-            githubBtn.addEventListener('click', () => this.signInWithGitHub());
-        }
-    }
-
-    async signInWithGoogle() {
-        // Implement Google OAuth
-        this.showError(document.getElementById('errorMessage'), 'Google sign-in coming soon!');
-    }
-
-    async signInWithGitHub() {
-        // Implement GitHub OAuth
-        this.showError(document.getElementById('errorMessage'), 'GitHub sign-in coming soon!');
+        await db.ref(`users/${user.uid}`).set(userData);
     }
 
     handleAuthError(error, errorDiv) {
@@ -193,11 +244,18 @@ class AdvancedAuth {
         if (errorDiv) {
             errorDiv.textContent = message;
             errorDiv.style.display = 'block';
-            
-            // Auto-hide error after 5 seconds
-            setTimeout(() => {
-                errorDiv.style.display = 'none';
-            }, 5000);
+            errorDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        
+        // Also show notification
+        if (window.showNotification) {
+            window.showNotification(message, 'error');
+        }
+    }
+
+    hideError(errorDiv) {
+        if (errorDiv) {
+            errorDiv.style.display = 'none';
         }
     }
 
@@ -207,9 +265,16 @@ class AdvancedAuth {
         if (isLoading) {
             button.classList.add('loading');
             button.disabled = true;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
         } else {
             button.classList.remove('loading');
             button.disabled = false;
+            
+            // Restore original button text based on form type
+            const isSignup = document.getElementById('authTitle').textContent.includes('Create');
+            button.innerHTML = isSignup ? 
+                '<i class="fas fa-user-plus"></i> Create Account' : 
+                '<i class="fas fa-sign-in-alt"></i> Sign In';
         }
     }
 
@@ -223,77 +288,29 @@ class AdvancedAuth {
     }
 
     checkAuthState() {
-        auth.onAuthStateChanged((user) => {
-            const currentPage = window.location.pathname.split('/').pop();
-            
-            if (user) {
-                // User is signed in
-                if (currentPage === 'login.html' || currentPage === 'index.html') {
-                    window.location.href = 'dashboard.html';
-                }
+        if (typeof auth !== 'undefined') {
+            auth.onAuthStateChanged((user) => {
+                const currentPage = window.location.pathname.split('/').pop();
                 
-                // Update user last login
-                if (currentPage === 'dashboard.html') {
-                    this.updateLastLogin(user.uid);
+                if (user) {
+                    // User is signed in
+                    if (currentPage === 'login.html' || currentPage === 'index.html') {
+                        setTimeout(() => {
+                            window.location.href = 'dashboard.html';
+                        }, 1000);
+                    }
+                } else {
+                    // User is signed out
+                    if (currentPage === 'dashboard.html') {
+                        window.location.href = 'login.html';
+                    }
                 }
-            } else {
-                // User is signed out
-                if (currentPage === 'dashboard.html') {
-                    window.location.href = 'login.html';
-                }
-            }
-        });
-    }
-
-    async updateLastLogin(uid) {
-        await firebaseService.updateData(`users/${uid}`, {
-            lastLogin: new Date().toISOString()
-        });
-    }
-
-    // Password reset functionality
-    async resetPassword(email) {
-        try {
-            await auth.sendPasswordResetEmail(email);
-            return { success: true, message: 'Password reset email sent' };
-        } catch (error) {
-            return { success: false, error: error.message };
+            });
         }
-    }
-
-    // Update user profile
-    async updateProfile(uid, updates) {
-        return await firebaseService.updateData(`users/${uid}/profile`, updates);
-    }
-
-    // Delete user account
-    async deleteAccount(user) {
-        try {
-            // Delete user data from database
-            await db.ref(`users/${user.uid}`).remove();
-            
-            // Delete user's links
-            await this.deleteUserLinks(user.uid);
-            
-            // Delete auth account
-            await user.delete();
-            
-            return { success: true };
-        } catch (error) {
-            return { success: false, error: error.message };
-        }
-    }
-
-    async deleteUserLinks(uid) {
-        // Implementation to delete all user's links
-        // This would need to query and delete all links belonging to the user
     }
 }
 
 // Initialize authentication system
-const advancedAuth = new AdvancedAuth();
-
-// Export for use in other modules
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = advancedAuth;
-}
+document.addEventListener('DOMContentLoaded', () => {
+    window.advancedAuth = new AdvancedAuth();
+});
