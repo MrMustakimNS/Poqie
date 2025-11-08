@@ -1,4 +1,4 @@
-// Enhanced Firebase Configuration with Error Handling
+// Enhanced Firebase Configuration
 const firebaseConfig = {
   apiKey: "AIzaSyAiB0zy_SFSXQPKKbei_ubhlZzvrWDCNZI",
   authDomain: "milon-box.firebaseapp.com",
@@ -10,66 +10,44 @@ const firebaseConfig = {
   measurementId: "G-QZ4Q8P0M8L"
 };
 
-// Initialize Firebase with error handling
-try {
-  // Check if Firebase is already initialized
-  if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-    console.log('Firebase initialized successfully');
-  } else {
-    firebase.app(); // if already initialized, use that one
-  }
-} catch (error) {
-  console.error('Firebase initialization error:', error);
+// Initialize Firebase
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+} else {
+  firebase.app();
 }
 
 // Initialize Firebase services
 const auth = firebase.auth();
 const db = firebase.database();
 
-// Firebase Auth state persistence
-auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-  .catch((error) => {
-    console.error('Auth persistence error:', error);
+// Set persistence
+auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+
+console.log('Firebase initialized successfully');
+
+// Test function to check Firebase connection
+function testFirebaseConnection() {
+  console.log('Testing Firebase connection...');
+  
+  // Test Auth
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      console.log('✅ Firebase Auth: Connected, User:', user.email);
+    } else {
+      console.log('✅ Firebase Auth: Connected, No user signed in');
+    }
   });
 
-// Enhanced error handling for Firebase operations
-const firebaseService = {
-  // Safe database write operation
-  async writeData(path, data) {
-    try {
-      await db.ref(path).set(data);
-      return { success: true };
-    } catch (error) {
-      console.error('Firebase write error:', error);
-      return { success: false, error: error.message };
+  // Test Database
+  db.ref('.info/connected').on('value', (snap) => {
+    if (snap.val() === true) {
+      console.log('✅ Firebase Database: Connected');
+    } else {
+      console.log('❌ Firebase Database: Disconnected');
     }
-  },
-
-  // Safe database read operation
-  async readData(path) {
-    try {
-      const snapshot = await db.ref(path).once('value');
-      return { success: true, data: snapshot.val() };
-    } catch (error) {
-      console.error('Firebase read error:', error);
-      return { success: false, error: error.message };
-    }
-  },
-
-  // Safe database update operation
-  async updateData(path, updates) {
-    try {
-      await db.ref(path).update(updates);
-      return { success: true };
-    } catch (error) {
-      console.error('Firebase update error:', error);
-      return { success: false, error: error.message };
-    }
-  }
-};
-
-// Export for use in other modules
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { firebaseConfig, auth, db, firebaseService };
+  });
 }
+
+// Call this to test connection
+// testFirebaseConnection();
