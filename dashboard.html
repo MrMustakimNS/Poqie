@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Poqie.site</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <a href="index.html"><i class="fas fa-link"></i> Poqie.site</a>
+                </div>
+                <div class="nav-menu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="index.html#features" class="nav-link">Features</a>
+                    <a href="index.html#how-it-works" class="nav-link">How It Works</a>
+                    <div class="user-info">
+                        <div class="user-avatar" id="userInitial">U</div>
+                        <span id="userEmail">user@example.com</span>
+                        <button id="logoutBtn" class="btn btn-secondary" style="padding: 8px 16px; margin-left: 10px;">Logout</button>
+                    </div>
+                </div>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="dashboard">
+        <div class="container">
+            <div class="dashboard-header">
+                <h1 class="dashboard-title">Your Shortened URLs</h1>
+            </div>
+            
+            <div class="url-shortener-form">
+                <h2>Shorten a New URL</h2>
+                <form id="urlForm">
+                    <div class="form-row">
+                        <input type="url" id="originalUrl" class="url-input" placeholder="Paste your long URL here" required>
+                        <button type="submit" class="btn btn-primary">Shorten</button>
+                    </div>
+                    <div class="custom-url-option">
+                        <input type="checkbox" id="customUrlToggle">
+                        <label for="customUrlToggle">Custom URL</label>
+                        <div id="customUrlContainer" style="display: none; flex: 1;">
+                            <input type="text" id="customSlug" class="custom-url-input" placeholder="Custom name (optional)">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="links-list" id="linksList">
+                <p>Loading your links...</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-link"></i> Poqie.site</h3>
+                    <p>Advanced URL shortener with security, analytics, and privacy protection.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#features">Features</a></li>
+                        <li><a href="index.html#how-it-works">How It Works</a></li>
+                        <li><a href="login.html">Login</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Poqie.site. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase and CryptoJS -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
